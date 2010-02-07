@@ -35,4 +35,4 @@ fi
 $ADB start-server
 
 # Start Android Projector
-java $OSOPTS -classpath $BASEDIR/AndroidProjector.jar:$LIBDIR/ddmlib.jar:$SWTDIR/swt.jar com.google.android.AndroidProjector
+exec java $OSOPTS -Djava.ext.dirs="$LIBDIR:$SWTDIR" -jar $BASEDIR/AndroidProjector.jar
