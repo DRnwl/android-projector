@@ -14,11 +14,11 @@
 # limitations under the License.
 
 BASEDIR=`dirname $0`
-ADB=`which adb`
-LIBDIR=`dirname $ADB`/lib
+TOOLSDIR=`dirname $(which android)`
+LIBDIR=$TOOLSDIR/lib
 
 # Use tools in Android SDK to figure out the swt.jar for the current JVM.
-VMARCH=`java -jar $LIBDIR/archquery.jar`
+VMARCH=`java -jar "$LIBDIR/archquery.jar"`
 SWTDIR=$LIBDIR/$VMARCH
 
 if [ `uname` = "Darwin" ]; then
@@ -32,7 +32,7 @@ if [ `uname` = "Linux" ]; then
 fi
 
 # Ensure that adb server is running
-$ADB start-server
+adb start-server
 
 # Start Android Projector
-exec java $OSOPTS -Djava.ext.dirs="$LIBDIR:$SWTDIR" -jar $BASEDIR/AndroidProjector.jar
+exec java $OSOPTS -Djava.ext.dirs="$LIBDIR:$SWTDIR" -jar "$BASEDIR/AndroidProjector.jar"

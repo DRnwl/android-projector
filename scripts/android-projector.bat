@@ -14,19 +14,19 @@ rem See the License for the specific language governing permissions and
 rem limitations under the License.
 
 set BASEDIR=%~dp0
-call :which adb.exe
+call :which android.bat
 
 rem Use tools in Android SDK to figure out the swt.jar for the current JVM.
-for /f %%a in ('java -jar %LIBDIR%\archquery.jar') do set SWTDIR=%LIBDIR%\%%a
+for /f %%a in ('java -jar "%LIBDIR%\archquery.jar"') do set SWTDIR=%LIBDIR%\%%a
 
 rem Ensure that adb server is running
 adb.exe start-server
 
 rem Start Android Projector
-call java -Djava.ext.dirs="%LIBDIR%;%SWTDIR%" -jar %BASEDIR%AndroidProjector.jar
+call java -Djava.ext.dirs="%LIBDIR%;%SWTDIR%" -jar "%BASEDIR%AndroidProjector.jar"
 
 goto :EOF
 
 :which
-set TOOLDIR=%~dp$PATH:1
-set LIBDIR=%TOOLDIR%lib
+set TOOLSDIR=%~dp$PATH:1
+set LIBDIR=%TOOLSDIR%lib
